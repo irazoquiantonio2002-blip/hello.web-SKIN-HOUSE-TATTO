@@ -44,6 +44,41 @@ document.addEventListener("click", (event) => {
   navToggle?.setAttribute("aria-expanded", "false");
 });
 
+const waModal = document.getElementById("wa-modal");
+const waTriggers = document.querySelectorAll("[data-wa-trigger]");
+const waCloseEls = document.querySelectorAll("[data-wa-close]");
+const waOptions = document.querySelectorAll(".wa-modal-option");
+let waLastFocused = null;
+
+const openWaModal = () => {
+  if (!waModal) return;
+  body.classList.remove("nav-open");
+  navToggle?.setAttribute("aria-expanded", "false");
+  waLastFocused = document.activeElement;
+  waModal.classList.add("is-open");
+  waModal.setAttribute("aria-hidden", "false");
+  body.classList.add("wa-modal-open");
+  waModal.querySelector(".wa-modal-close")?.focus();
+};
+
+const closeWaModal = () => {
+  if (!waModal) return;
+  waModal.classList.remove("is-open");
+  waModal.setAttribute("aria-hidden", "true");
+  body.classList.remove("wa-modal-open");
+  if (waLastFocused instanceof HTMLElement) waLastFocused.focus();
+};
+
+waTriggers.forEach((trigger) => trigger.addEventListener("click", openWaModal));
+waCloseEls.forEach((el) => el.addEventListener("click", closeWaModal));
+waOptions.forEach((option) => option.addEventListener("click", closeWaModal));
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && waModal?.classList.contains("is-open")) {
+    closeWaModal();
+  }
+});
+
 const revealEls = document.querySelectorAll("[data-reveal]");
 const revealObserver = new IntersectionObserver(
   (entries) => {
