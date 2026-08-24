@@ -22,10 +22,13 @@
 }
 
 html {
+  max-width: 100%;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 body {
+  max-width: 100%;
   margin: 0;
   background: var(--ink);
   color: var(--text);
@@ -392,7 +395,8 @@ ul {
 }
 
 .social-links {
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 16px 20px;
   align-items: flex-start;
 }
 
@@ -401,6 +405,7 @@ ul {
   flex-direction: column;
   align-items: center;
   gap: 7px;
+  max-width: 88px;
   color: var(--paper);
   transition: transform 0.2s ease;
 }
@@ -434,7 +439,8 @@ ul {
   font-size: 0.7rem;
   font-weight: 600;
   color: var(--muted);
-  white-space: nowrap;
+  text-align: center;
+  line-height: 1.25;
 }
 
 .scroll-indicator {
