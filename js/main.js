@@ -10,11 +10,15 @@ if (year) {
   year.textContent = new Date().getFullYear();
 }
 
-window.addEventListener("load", () => {
-  window.setTimeout(() => {
-    loadingScreen?.classList.add("is-hidden");
-  }, 450);
-});
+let loaderHidden = false;
+const hideLoader = () => {
+  if (loaderHidden) return;
+  loaderHidden = true;
+  loadingScreen?.classList.add("is-hidden");
+};
+
+window.addEventListener("load", () => window.setTimeout(hideLoader, 450));
+window.setTimeout(hideLoader, 2500);
 
 const setHeaderState = () => {
   header?.classList.toggle("is-scrolled", window.scrollY > 24);
